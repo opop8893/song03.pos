@@ -12,6 +12,11 @@ Number(localStorage.getItem("todayOrders")) || 0;
 
 let todayCount =
 Number(localStorage.getItem("todayCount")) || 0;
+let orderHistory =
+JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+let salesRank =
+JSON.parse(localStorage.getItem("salesRank")) || {};
 
 
 const price = 130;
@@ -95,7 +100,42 @@ let bowls =
 order.filter(item=>item.name!="加起司").length;
 
 todayCount += bowls;
+let saveOrder = {
 
+number:String(orderNumber).padStart(3,"0"),
+
+items:order,
+
+total:total
+
+};
+
+
+orderHistory.push(saveOrder);
+
+
+localStorage.setItem(
+"orderHistory",
+JSON.stringify(orderHistory)
+);
+
+
+order.forEach(item=>{
+
+if(item.name!="加起司"){
+
+salesRank[item.name] =
+(salesRank[item.name] || 0)+1;
+
+}
+
+});
+
+
+localStorage.setItem(
+"salesRank",
+JSON.stringify(salesRank)
+);
 
 localStorage.setItem(
 "orderNumber",
@@ -181,3 +221,87 @@ document.getElementById("report").innerHTML =
 "營業額：" + todaySales + "元";
 
 }showReport();
+function showHistory(){
+
+let text="";
+
+
+if(orderHistory.length===0){
+
+text="目前沒有訂單";
+
+}else{
+
+
+orderHistory.forEach(o=>{
+
+
+text +=
+"<hr>"+
+o.number+"號<br>";
+
+
+o.items.forEach(item=>{
+
+text +=
+item.name+
+" "+
+item.price+
+"元<br>";
+
+});
+
+
+text +=
+"總額："+o.total+"元<br>";
+
+});
+
+
+}
+
+
+document.getElementById("orderHistory").innerHTML=text;
+
+}
+
+
+
+function showRanking(){
+
+let text="";
+
+
+let rank = Object.entries(salesRank)
+.sort((a,b)=>b[1]-a[1]);
+
+
+if(rank.length===0){
+
+text="目前沒有資料";
+
+}else{
+
+
+rank.forEach((item,index)=>{
+
+text +=
+(index+1)+". "+
+item[0]+
+" "+
+item[1]+
+"碗<br>";
+
+});
+
+}
+
+
+document.getElementById("ranking").innerHTML=text;
+
+}
+
+
+showHistory();
+
+showRanking();
