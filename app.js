@@ -543,3 +543,22 @@ showReport();
 showHistory();
 
 updateMenuCount();
+function resetOrderNumber(){
+
+let check = confirm("確定訂單號碼歸零嗎？");
+
+if(check){
+
+orderNumber = 1;
+
+localStorage.setItem(
+"orderNumber",
+"1"
+);
+
+
+alert("完成！下一張訂單為001號");
+
+}
+
+}
