@@ -156,7 +156,14 @@ localStorage.setItem(
 "todayCount",
 todayCount
 );
+localStorage.removeItem("orderHistory");
+localStorage.removeItem("salesRank");
 
+orderHistory=[];
+salesRank={};
+
+showHistory();
+showRanking();
 
 alert(
 "完成訂單\n\n"+
