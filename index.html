@@ -11,10 +11,6 @@
 
 <link rel="stylesheet" href="style.css">
 
-<link rel="manifest" href="manifest.json">
-
-<meta name="theme-color" content="#c0392b">
-
 </head>
 
 
@@ -24,147 +20,93 @@
 <h1>🍲 宋爽爽花枝蝦滑湯</h1>
 
 
-<h2>🍜 選擇口味</h2>
-
-
-<div>
+<h2>選擇口味</h2>
 
 
 <button onclick="addItem('蜀香麻辣')">
-🌶 蜀香麻辣<br>
-130元
+🌶 蜀香麻辣 +1
 </button>
 
 
 <button onclick="addItem('石頭火鍋')">
-🪨 石頭火鍋<br>
-130元
+🪨 石頭火鍋 +1
 </button>
 
 
 <button onclick="addItem('田園蕃茄')">
-🍅 田園蕃茄<br>
-130元
+🍅 田園蕃茄 +1
 </button>
 
 
 <button onclick="addItem('濃郁牛奶')">
-🥛 濃郁牛奶<br>
-130元
+🥛 濃郁牛奶 +1
 </button>
 
 
 <button onclick="addItem('烏溜溜黑蒜')">
-🧄 烏溜溜黑蒜<br>
-130元
+🧄 烏溜溜黑蒜 +1
 </button>
 
 
 <button onclick="addItem('酸菜魚')">
-🥬 酸菜魚<br>
-130元
+🥬 酸菜魚 +1
 </button>
-
-
-</div>
-
 
 
 <hr>
 
 
-<h2>🧾 目前訂單</h2>
-
+<h2>🧾 點餐內容</h2>
 
 <div id="orderList">
-
 目前沒有訂單
-
 </div>
 
 
-
 <h2 id="total">
-
 總金額：0元
-
 </h2>
 
 
 
-
 <button onclick="addCheese()">
-
 🧀 加起司 +10元
-
 </button>
-
 
 
 <button onclick="finishOrder()">
-
 ✅ 完成訂單
-
 </button>
 
 
-
-
 <hr>
-
 
 
 <h2>📊 今日營業</h2>
 
-
 <div id="report">
-
 今日尚無資料
-
 </div>
 
 
-
 <button onclick="clearSales()">
-
 🗑️ 清除今日營業
-
 </button>
-
-
 
 
 <hr>
 
 
-
-<h2>🧾 今日訂單明細</h2>
+<h2>🧾 訂單明細</h2>
 
 
 <div id="orderHistory">
-
 目前沒有訂單
-
 </div>
 
 
 
-
-
 <script src="app.js"></script>
-
-
-
-<script>
-
-if ("serviceWorker" in navigator) {
-
-navigator.serviceWorker.register("service-worker.js");
-
-}
-
-</script>
-
 
 
 </body>
