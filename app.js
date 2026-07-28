@@ -1,24 +1,24 @@
 let order = [];
-
 let total = 0;
 
 
+// 訂單編號
 let orderNumber =
 Number(localStorage.getItem("orderNumber")) || 1;
 
 
+// 今日營業資料
 let todaySales =
 Number(localStorage.getItem("todaySales")) || 0;
 
-
 let todayOrders =
 Number(localStorage.getItem("todayOrders")) || 0;
-
 
 let todayCount =
 Number(localStorage.getItem("todayCount")) || 0;
 
 
+// 訂單明細
 let orderHistory =
 JSON.parse(localStorage.getItem("orderHistory")) || [];
 
@@ -27,79 +27,67 @@ const price = 130;
 
 
 
+// =================
+// 點餐
+// =================
+
 function addItem(name){
-
-
-let item =
-order.find(x=>x.name===name);
-
-
-
-if(item){
-
-item.qty++;
-
-item.price =
-item.qty * price;
-
-
-}else{
-
 
 order.push({
 
 name:name,
-
-qty:1,
-
 price:price
 
 });
 
 
-}
-
-
 total += price;
-
 
 showOrder();
 
-updateMenuCount();
-
-
 }
 
 
 
+// =================
+// 加起司
+// =================
+
 function addCheese(){
+
+if(order.length === 0){
+
+alert("請先選擇湯底");
+
+return;
+
+}
 
 
 order.push({
 
 name:"加起司",
-
-qty:1,
-
 price:10
 
 });
 
 
-total +=10;
+total += 10;
 
 
 showOrder();
-
 
 }
 
 
 
+// =================
+// 顯示目前訂單
+// =================
+
 function showOrder(){
 
-
-let text="";
+let text = "";
 
 
 order.forEach((item,index)=>{
@@ -109,9 +97,7 @@ text +=
 
 (index+1)+". "+
 item.name+
-" × "+
-item.qty+
-" = "+
+" "+
 item.price+
 "元<br>";
 
@@ -131,62 +117,16 @@ document.getElementById("total").innerHTML =
 
 
 
-
-function updateMenuCount(){
-
-
-let menu=[
-
-"蜀香麻辣",
-"石頭火鍋",
-"田園蕃茄",
-"濃郁牛奶",
-"烏溜溜黑蒜",
-"酸菜魚"
-
-];
-
-
-menu.forEach(name=>{
-
-
-let btn=document.getElementById(
-"btn-"+name
-);
-
-
-if(btn){
-
-
-let item =
-order.find(x=>x.name===name);
-
-
-
-btn.innerHTML =
-item ?
-name+"（"+item.qty+"碗）"
-:
-name;
-
-
-}
-
-
-});
-
-
-}
-
-
-
+// =================
+// 完成訂單
+// =================
 
 function finishOrder(){
 
 
-if(order.length===0){
+if(order.length === 0){
 
-alert("請先點餐");
+alert("目前沒有訂單");
 
 return;
 
@@ -198,26 +138,24 @@ let number =
 String(orderNumber).padStart(3,"0");
 
 
+// 計算營業
 
 todayOrders++;
 
 todaySales += total;
 
 
+let bowls =
+order.filter(item=>item.name !== "加起司").length;
 
-order.forEach(item=>{
 
-if(item.name!="加起司"){
-
-todayCount += item.qty;
-
-}
-
-});
+todayCount += bowls;
 
 
 
-let save={
+// 保存訂單
+
+let saveOrder = {
 
 number:number,
 
@@ -229,7 +167,7 @@ total:total
 
 
 
-orderHistory.push(save);
+orderHistory.push(saveOrder);
 
 
 
@@ -237,6 +175,7 @@ localStorage.setItem(
 "orderHistory",
 JSON.stringify(orderHistory)
 );
+
 
 
 localStorage.setItem(
@@ -257,30 +196,26 @@ todayCount
 );
 
 
+
 localStorage.setItem(
 "orderNumber",
-orderNumber+1
-);
-
-
-
-createB21Label(
-number,
-order,
-total
+orderNumber + 1
 );
 
 
 
 alert(
+
 "完成訂單\n\n"+
 "號碼："+number+
 "\n金額："+total+"元"
+
 );
 
 
 
 orderNumber++;
+
 
 order=[];
 
@@ -290,63 +225,23 @@ total=0;
 
 showOrder();
 
-showHistory();
-
 showReport();
 
-updateMenuCount();
+showHistory();
 
 
 }
 
 
 
-
-function createB21Label(number,items,total){
-
-
-let text="";
-
-
-text +=
-"🍲 宋爽爽花枝蝦滑湯\n\n";
-
-
-text +=
-number+"號\n\n";
-
-
-items.forEach(item=>{
-
-
-text +=
-item.name+
-" × "+
-item.qty+
-"\n";
-
-
-});
-
-
-text +=
-"\n總額："+total+"元";
-
-
-document.getElementById(
-"printLabel"
-).innerText=text;
-
-
-}
-
-
-
+// =================
+// 今日營業
+// =================
 
 function showReport(){
 
 
-document.getElementById("report").innerHTML=
+document.getElementById("report").innerHTML =
 
 "訂單數："+todayOrders+"筆<br>"+
 "總碗數："+todayCount+"碗<br>"+
@@ -357,6 +252,9 @@ document.getElementById("report").innerHTML=
 
 
 
+// =================
+// 訂單明細
+// =================
 
 function showHistory(){
 
@@ -364,46 +262,60 @@ function showHistory(){
 let text="";
 
 
-orderHistory.forEach(o=>{
+if(orderHistory.length === 0){
+
+text="目前沒有訂單";
+
+
+}else{
+
+
+orderHistory.forEach(order=>{
 
 
 text +=
+
 "<hr>"+
-o.number+
+order.number+
 "號<br>";
 
 
-
-o.items.forEach(item=>{
+order.items.forEach(item=>{
 
 
 text +=
+
 item.name+
-" × "+
-item.qty+
 " "+
 item.price+
 "元<br>";
 
+
 });
 
 
 text +=
-"總額："+o.total+"元<br>";
+
+"總額："+order.total+"元<br>";
+
 
 });
 
 
-document.getElementById(
-"orderHistory"
-).innerHTML =
-text || "目前沒有訂單";
+}
+
+
+document.getElementById("orderHistory").innerHTML =
+text;
 
 
 }
 
 
 
+// =================
+// 清除今日營業
+// =================
 
 function clearSales(){
 
@@ -411,14 +323,14 @@ function clearSales(){
 if(confirm("確定清除今日營業資料嗎？")){
 
 
-todaySales=0;
+todaySales = 0;
 
-todayOrders=0;
+todayOrders = 0;
 
-todayCount=0;
+todayCount = 0;
 
+orderHistory = [];
 
-orderHistory=[];
 
 
 localStorage.removeItem("todaySales");
@@ -430,9 +342,11 @@ localStorage.removeItem("todayCount");
 localStorage.removeItem("orderHistory");
 
 
+
 showReport();
 
 showHistory();
+
 
 
 alert("今日資料已清除");
@@ -445,41 +359,12 @@ alert("今日資料已清除");
 
 
 
-
-// 訂單號碼歸零
-
-function resetOrderNumber(){
-
-
-if(confirm("確定訂單號碼重新從001開始嗎？")){
-
-
-orderNumber = 1;
-
-
-localStorage.setItem(
-"orderNumber",
-"1"
-);
-
-
-alert(
-"訂單號碼已歸零\n下一張為001號"
-);
-
-
-}
-
-
-}
-
-
-
+// =================
+// 啟動載入
+// =================
 
 showOrder();
 
 showReport();
 
 showHistory();
-
-updateMenuCount();
