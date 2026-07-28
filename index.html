@@ -24,6 +24,7 @@
 <h1>🍲 宋爽爽花枝蝦滑湯</h1>
 
 
+
 <h2>🍜 選擇口味</h2>
 
 
@@ -31,38 +32,55 @@
 
 
 <button onclick="addItem('蜀香麻辣')">
+
 🌶 蜀香麻辣<br>
 130元
+
 </button>
+
 
 
 <button onclick="addItem('石頭火鍋')">
+
 🪨 石頭火鍋<br>
 130元
+
 </button>
+
 
 
 <button onclick="addItem('田園蕃茄')">
+
 🍅 田園蕃茄<br>
 130元
+
 </button>
+
 
 
 <button onclick="addItem('濃郁牛奶')">
+
 🥛 濃郁牛奶<br>
 130元
+
 </button>
+
 
 
 <button onclick="addItem('烏溜溜黑蒜')">
+
 🧄 烏溜溜黑蒜<br>
 130元
+
 </button>
 
 
+
 <button onclick="addItem('酸菜魚')">
+
 🥬 酸菜魚<br>
 130元
+
 </button>
 
 
@@ -73,6 +91,8 @@
 <hr>
 
 
+
+
 <h2>🧾 目前訂單</h2>
 
 
@@ -81,6 +101,7 @@
 目前沒有訂單
 
 </div>
+
 
 
 
@@ -101,6 +122,10 @@
 
 
 
+<br><br>
+
+
+
 <button onclick="finishOrder()">
 
 ✅ 完成訂單
@@ -114,7 +139,9 @@
 
 
 
+
 <h2>📊 今日營業</h2>
+
 
 
 <div id="report">
@@ -134,11 +161,28 @@
 
 
 
+<br><br>
+
+
+
+
+<button onclick="resetOrderNumber()">
+
+🔢 訂單號碼歸0
+
+</button>
+
+
+
+
+
 <hr>
 
 
 
+
 <h2>🧾 今日訂單明細</h2>
+
 
 
 <div id="orderHistory">
@@ -157,11 +201,17 @@
 
 <script>
 
+
 if ("serviceWorker" in navigator) {
 
-navigator.serviceWorker.register("service-worker.js");
+
+navigator.serviceWorker.register(
+"service-worker.js"
+);
+
 
 }
+
 
 </script>
 
