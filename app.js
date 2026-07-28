@@ -1,5 +1,5 @@
-let order=[];
-let total=0;
+let order = [];
+let total = 0;
 
 
 let orderNumber =
@@ -22,25 +22,26 @@ let orderHistory =
 JSON.parse(localStorage.getItem("orderHistory")) || [];
 
 
-const price=130;
+const price = 130;
 
 
+// =====================
+// 加入湯底
+// =====================
 
 function addItem(name){
 
-
-let item =
-order.find(
-x=>x.name===name
+let item = order.find(
+x => x.name === name
 );
-
 
 
 if(item){
 
 item.qty++;
 
-item.price=item.qty*price;
+item.price =
+item.qty * price;
 
 
 }else{
@@ -60,22 +61,24 @@ price:price
 }
 
 
-total+=price;
+total += price;
 
 
 showOrder();
 
 updateMenuCount();
 
-
 }
 
 
 
+// =====================
+// 加起司
+// =====================
+
 function addCheese(){
 
-
-if(order.length===0){
+if(order.length === 0){
 
 alert("請先選擇湯底");
 
@@ -83,6 +86,21 @@ return;
 
 }
 
+
+let cheese =
+order.find(
+x=>x.name==="加起司"
+);
+
+
+if(cheese){
+
+cheese.qty++;
+
+cheese.price +=10;
+
+
+}else{
 
 
 order.push({
@@ -96,27 +114,32 @@ price:10
 });
 
 
-total+=10;
+}
+
+
+total +=10;
 
 
 showOrder();
 
-
 }
 
 
+
+// =====================
+// 增加數量
+// =====================
 
 function plusItem(index){
 
 
 order[index].qty++;
 
-
 order[index].price =
-order[index].qty*price;
+order[index].qty * price;
 
 
-total+=price;
+total += price;
 
 
 showOrder();
@@ -128,25 +151,30 @@ updateMenuCount();
 
 
 
+// =====================
+// 減少數量
+// =====================
+
 function minusItem(index){
 
 
-if(order[index].qty>1){
+if(order[index].qty > 1){
 
 
 order[index].qty--;
 
 order[index].price =
-order[index].qty*price;
+order[index].qty * price;
 
 
-total-=price;
+total -= price;
 
 
 }else{
 
 
-total-=order[index].price;
+total -= order[index].price;
+
 
 order.splice(index,1);
 
@@ -163,6 +191,10 @@ updateMenuCount();
 
 
 
+// =====================
+// 顯示訂單
+// =====================
+
 function showOrder(){
 
 
@@ -175,30 +207,35 @@ order.forEach((item,index)=>{
 if(item.name==="加起司"){
 
 
-text+=
+text +=
 "🧀 加起司 ×"+
 item.qty+
-" "+
+" = "+
 item.price+
-"元<br>";
+"元<br><br>";
 
 
 }else{
 
 
-text+=
+text +=
 
 (index+1)+". "+
 item.name+
 "<br>"+
 
-"<button onclick='minusItem("+index+")'>➖</button>"+
 
-" "+item.qty+" "+
+"<button onclick=\"minusItem("+index+")\">➖</button> "+
 
-"<button onclick='plusItem("+index+")'>➕</button>"+
+
+item.qty+
+
+
+" <button onclick=\"plusItem("+index+")\">➕</button>"+
+
 
 "<br>"+
+
 
 item.price+
 "元<br><br>";
@@ -222,6 +259,10 @@ document.getElementById("total").innerHTML =
 
 
 
+// =====================
+// 更新湯底按鈕數量
+// =====================
+
 function updateMenuCount(){
 
 
@@ -240,23 +281,40 @@ let menu=[
 menu.forEach(name=>{
 
 
-let btn=document.getElementById("btn-"+name);
+let btn =
+document.getElementById(
+"btn-"+name
+);
 
 
 if(btn){
 
 
-let item=
+let item =
 order.find(
 x=>x.name===name
 );
 
 
 
+if(item){
+
+
 btn.innerHTML =
-item ?
-name+"（"+item.qty+"碗）":
+name+
+"（"+
+item.qty+
+"碗）";
+
+
+}else{
+
+
+btn.innerHTML =
 name;
+
+
+}
 
 
 }
@@ -269,6 +327,9 @@ name;
 
 
 
+// =====================
+// 完成訂單
+// =====================
 
 function finishOrder(){
 
@@ -282,7 +343,6 @@ return;
 }
 
 
-
 let number =
 String(orderNumber).padStart(3,"0");
 
@@ -290,7 +350,8 @@ String(orderNumber).padStart(3,"0");
 
 todayOrders++;
 
-todaySales+=total;
+
+todaySales += total;
 
 
 
@@ -300,9 +361,9 @@ let bowls=0;
 order.forEach(item=>{
 
 
-if(item.name!="加起司"){
+if(item.name!=="加起司"){
 
-bowls+=item.qty;
+bowls += item.qty;
 
 }
 
@@ -310,17 +371,21 @@ bowls+=item.qty;
 });
 
 
-todayCount+=bowls;
+todayCount += bowls;
 
 
 
 let saveOrder={
 
+
 number:number,
+
 
 items:[...order],
 
+
 total:total
+
 
 };
 
@@ -331,8 +396,11 @@ orderHistory.push(saveOrder);
 
 
 localStorage.setItem(
+
 "orderHistory",
+
 JSON.stringify(orderHistory)
+
 );
 
 
@@ -362,14 +430,6 @@ orderNumber+1
 
 
 
-createB21Label(
-number,
-order,
-total
-);
-
-
-
 alert(
 
 "完成訂單\n\n"+
@@ -382,9 +442,11 @@ alert(
 
 orderNumber++;
 
+
 order=[];
 
 total=0;
+
 
 
 showOrder();
@@ -400,52 +462,15 @@ updateMenuCount();
 
 
 
-
-function createB21Label(number,items,total){
-
-
-let text="";
-
-
-text+="🍲 宋爽爽花枝蝦滑湯\n\n";
-
-
-text+=number+"號\n\n";
-
-
-items.forEach(item=>{
-
-
-text+=
-item.name+
-" × "+
-item.qty+
-"\n";
-
-
-});
-
-
-text+="\n總額："+total+"元\n\n";
-
-
-text+="請製作";
-
-
-
-document.getElementById("printLabel").innerText=text;
-
-
-}
-
-
-
-
+// =====================
+// 今日營業
+// =====================
 
 function showReport(){
 
 
 document.getElementById("report").innerHTML=
+
 
 "訂單數："+todayOrders+"筆<br>"+
 "總碗數："+todayCount+"碗<br>"+
@@ -456,6 +481,9 @@ document.getElementById("report").innerHTML=
 
 
 
+// =====================
+// 訂單明細
+// =====================
 
 function showHistory(){
 
@@ -466,13 +494,18 @@ let text="";
 orderHistory.forEach(o=>{
 
 
-text+="<hr>"+o.number+"號<br>";
+text +=
+
+"<hr>"+
+o.number+
+"號<br>";
 
 
 o.items.forEach(item=>{
 
 
-text+=
+text +=
+
 item.name+
 " × "+
 item.qty+
@@ -484,9 +517,10 @@ item.price+
 });
 
 
-text+="總額："+o.total+"元<br>";
+text +=
 
-
+"總額："+o.total+
+"元<br>";
 
 });
 
@@ -499,6 +533,9 @@ text || "目前沒有訂單";
 
 
 
+// =====================
+// 清除今日營業
+// =====================
 
 function clearSales(){
 
@@ -515,10 +552,15 @@ todayCount=0;
 orderHistory=[];
 
 
+
 localStorage.removeItem("todaySales");
+
 localStorage.removeItem("todayOrders");
+
 localStorage.removeItem("todayCount");
+
 localStorage.removeItem("orderHistory");
+
 
 
 showReport();
@@ -536,6 +578,9 @@ alert("今日資料已清除");
 
 
 
+// =====================
+// 訂單號碼歸零
+// =====================
 
 function resetOrderNumber(){
 
@@ -552,7 +597,7 @@ localStorage.setItem(
 );
 
 
-alert("訂單號碼已歸零，下一張001號");
+alert("訂單號碼已歸零，下一張為001號");
 
 
 }
@@ -562,6 +607,9 @@ alert("訂單號碼已歸零，下一張001號");
 
 
 
+// =====================
+// 開啟載入
+// =====================
 
 showOrder();
 
