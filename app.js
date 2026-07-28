@@ -152,38 +152,22 @@ document.getElementById("report").innerHTML=
 showReport();
 function clearSales(){
 
-let confirmClear = confirm(
-"確定要清除今日營業資料嗎？"
-);
+if(confirm("確定清除今日營業資料嗎？")){
 
+localStorage.removeItem("todaySales");
+localStorage.removeItem("todayOrders");
+localStorage.removeItem("todayCount");
 
-if(confirmClear){
 
 todaySales = 0;
 todayOrders = 0;
 todayCount = 0;
 
 
-localStorage.setItem(
-"todaySales",
-0
-);
-
-localStorage.setItem(
-"todayOrders",
-0
-);
-
-localStorage.setItem(
-"todayCount",
-0
-);
-
-
 showReport();
 
 
-alert("今日營業已清除");
+alert("今日營業資料已清除");
 
 }
 
