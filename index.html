@@ -8,6 +8,8 @@
 <title>宋爽爽花枝蝦滑湯</title>
 
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c0392b">
 
 </head>
 
@@ -44,7 +46,11 @@
 </div>
 
 
-<script src="app.js"></script>
+<script src="app.js"></script><script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
 
 </body>
 
