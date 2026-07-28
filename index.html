@@ -9,7 +9,6 @@
 
 <link rel="stylesheet" href="style.css">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#c0392b">
 
 </head>
 
@@ -19,40 +18,57 @@
 
 <div>
 
-<button onclick="chooseItem('蜀香麻辣')">
+<button onclick="addItem('蜀香麻辣')">
 🌶 蜀香麻辣<br>130元
 </button>
 
-<button onclick="chooseItem('石頭火鍋')">
+<button onclick="addItem('石頭火鍋')">
 🪨 石頭火鍋<br>130元
 </button>
 
-<button onclick="chooseItem('田園蕃茄')">
+<button onclick="addItem('田園蕃茄')">
 🍅 田園蕃茄<br>130元
 </button>
 
-<button onclick="chooseItem('濃郁牛奶')">
+<button onclick="addItem('濃郁牛奶')">
 🥛 濃郁牛奶<br>130元
 </button>
 
-<button onclick="chooseItem('烏溜溜黑蒜')">
+<button onclick="addItem('烏溜溜黑蒜')">
 🧄 烏溜溜黑蒜<br>130元
 </button>
 
-<button onclick="chooseItem('酸菜魚')">
+<button onclick="addItem('酸菜魚')">
 🥬 酸菜魚<br>130元
 </button>
 
 </div>
 
 
-<script src="app.js"></script><script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
-</script>
+<h2>🧾 訂單</h2>
+
+<div id="orderList">
+目前沒有訂單
+</div>
+
+
+<h2 id="total">
+總金額：0元
+</h2>
+
+
+<button onclick="addCheese()">
+🧀 加起司 +10元
+</button>
+
+
+<button onclick="finishOrder()">
+✅ 完成訂單
+</button>
+
+
+<script src="app.js"></script>
 
 </body>
 
 </html>
-
