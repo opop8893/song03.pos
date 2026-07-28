@@ -24,70 +24,55 @@
 <h1>🍲 宋爽爽花枝蝦滑湯</h1>
 
 
-<h2>🍜 選擇口味</h2>
-
-
-<div>
+<h2>🍜 選擇湯底</h2>
 
 
 <button onclick="addItem('蜀香麻辣')">
-🌶 蜀香麻辣<br>
-130元
+<span id="btn-蜀香麻辣">🌶 蜀香麻辣</span>
 </button>
 
 
 <button onclick="addItem('石頭火鍋')">
-🪨 石頭火鍋<br>
-130元
+<span id="btn-石頭火鍋">🪨 石頭火鍋</span>
 </button>
 
 
 <button onclick="addItem('田園蕃茄')">
-🍅 田園蕃茄<br>
-130元
+<span id="btn-田園蕃茄">🍅 田園蕃茄</span>
 </button>
 
 
 <button onclick="addItem('濃郁牛奶')">
-🥛 濃郁牛奶<br>
-130元
+<span id="btn-濃郁牛奶">🥛 濃郁牛奶</span>
 </button>
 
 
 <button onclick="addItem('烏溜溜黑蒜')">
-🧄 烏溜溜黑蒜<br>
-130元
+<span id="btn-烏溜溜黑蒜">🧄 烏溜溜黑蒜</span>
 </button>
 
 
 <button onclick="addItem('酸菜魚')">
-🥬 酸菜魚<br>
-130元
+<span id="btn-酸菜魚">🥬 酸菜魚</span>
 </button>
-
-
-</div>
 
 
 
 <hr>
 
 
+
 <h2>🧾 目前訂單</h2>
 
 
 <div id="orderList">
-
 目前沒有訂單
-
 </div>
 
 
 
 <h2 id="total">
-
 總金額：0元
-
 </h2>
 
 
@@ -99,6 +84,9 @@
 
 </button>
 
+
+
+<br><br>
 
 
 <button onclick="finishOrder()">
@@ -128,6 +116,18 @@
 <button onclick="clearSales()">
 
 🗑️ 清除今日營業
+
+</button>
+
+
+
+<br><br>
+
+
+
+<button onclick="resetOrderNumber()">
+
+🔢 訂單號碼歸零
 
 </button>
 
@@ -166,7 +166,7 @@ navigator.serviceWorker.register("service-worker.js");
 </script>
 
 
-
 </body>
+
 
 </html>
