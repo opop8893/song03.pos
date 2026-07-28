@@ -18,7 +18,7 @@ Number(localStorage.getItem("todayCount")) || 0;
 
 
 let orderHistory =
-JSON.parse(localStorage.getItem("orderHistory")) || {};
+JSON.parse(localStorage.getItem("orderHistory")) || [];
 
 
 const price = 130;
