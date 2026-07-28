@@ -1,1 +1,15 @@
-
+{
+  "name": "宋爽爽花枝蝦滑湯點餐系統",
+  "short_name": "宋爽爽點餐",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fff8e7",
+  "theme_color": "#c0392b",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
