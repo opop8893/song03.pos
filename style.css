@@ -1,1 +1,29 @@
+body {
+  font-family: Arial, "Microsoft JhengHei", sans-serif;
+  text-align: center;
+  background: #fff8e7;
+  margin: 0;
+  padding: 20px;
+}
 
+h1 {
+  font-size: 28px;
+  color: #c0392b;
+}
+
+button {
+  width: 90%;
+  max-width: 350px;
+  height: 75px;
+  margin: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: #ffcc66;
+  box-shadow: 0 4px 8px #999;
+}
+
+button:active {
+  transform: scale(0.96);
+}
