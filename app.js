@@ -1,4 +1,5 @@
 let order = [];
+
 let total = 0;
 
 
@@ -26,13 +27,12 @@ const price = 130;
 
 
 
-// 加入湯底
-
 function addItem(name){
 
-let item = order.find(
-x => x.name === name
-);
+
+let item =
+order.find(x=>x.name===name);
+
 
 
 if(item){
@@ -67,37 +67,12 @@ showOrder();
 
 updateMenuCount();
 
+
 }
 
 
-
-// 加起司
 
 function addCheese(){
-
-
-if(order.length===0){
-
-alert("請先選擇湯底");
-
-return;
-
-}
-
-
-let cheese = order.find(
-x=>x.name==="加起司"
-);
-
-
-if(cheese){
-
-cheese.qty++;
-
-cheese.price +=10;
-
-
-}else{
 
 
 order.push({
@@ -111,9 +86,6 @@ price:10
 });
 
 
-}
-
-
 total +=10;
 
 
@@ -124,9 +96,8 @@ showOrder();
 
 
 
-// 顯示訂單
-
 function showOrder(){
+
 
 let text="";
 
@@ -160,7 +131,6 @@ document.getElementById("total").innerHTML =
 
 
 
-// 更新按鈕數量
 
 function updateMenuCount(){
 
@@ -180,8 +150,7 @@ let menu=[
 menu.forEach(name=>{
 
 
-let btn =
-document.getElementById(
+let btn=document.getElementById(
 "btn-"+name
 );
 
@@ -190,28 +159,15 @@ if(btn){
 
 
 let item =
-order.find(
-x=>x.name===name
-);
+order.find(x=>x.name===name);
 
-
-if(item){
-
-btn.innerHTML =
-name+
-"（"+
-item.qty+
-"碗）";
-
-
-}else{
 
 
 btn.innerHTML =
+item ?
+name+"（"+item.qty+"碗）"
+:
 name;
-
-
-}
 
 
 }
@@ -224,18 +180,18 @@ name;
 
 
 
-// 完成訂單
 
 function finishOrder(){
 
 
 if(order.length===0){
 
-alert("目前沒有訂單");
+alert("請先點餐");
 
 return;
 
 }
+
 
 
 let number =
@@ -249,27 +205,19 @@ todaySales += total;
 
 
 
-let bowls=0;
-
-
 order.forEach(item=>{
-
 
 if(item.name!="加起司"){
 
-bowls += item.qty;
+todayCount += item.qty;
 
 }
-
 
 });
 
 
-todayCount += bowls;
 
-
-
-let saveOrder={
+let save={
 
 number:number,
 
@@ -281,7 +229,7 @@ total:total
 
 
 
-orderHistory.push(saveOrder);
+orderHistory.push(save);
 
 
 
@@ -316,8 +264,6 @@ orderNumber+1
 
 
 
-// 產生B21標籤
-
 createB21Label(
 number,
 order,
@@ -341,11 +287,12 @@ order=[];
 total=0;
 
 
+
 showOrder();
 
-showReport();
-
 showHistory();
+
+showReport();
 
 updateMenuCount();
 
@@ -354,8 +301,6 @@ updateMenuCount();
 
 
 
-
-// B21標籤
 
 function createB21Label(number,items,total){
 
@@ -385,11 +330,7 @@ item.qty+
 
 
 text +=
-"\n總額："+total+"元\n\n";
-
-
-text +=
-"請製作";
+"\n總額："+total+"元";
 
 
 document.getElementById(
@@ -401,8 +342,6 @@ document.getElementById(
 
 
 
-
-// 今日營業
 
 function showReport(){
 
@@ -418,7 +357,6 @@ document.getElementById("report").innerHTML=
 
 
 
-// 訂單明細
 
 function showHistory(){
 
@@ -440,7 +378,6 @@ o.items.forEach(item=>{
 
 
 text +=
-
 item.name+
 " × "+
 item.qty+
@@ -453,8 +390,6 @@ item.price+
 
 text +=
 "總額："+o.total+"元<br>";
-
-
 
 });
 
@@ -469,12 +404,11 @@ text || "目前沒有訂單";
 
 
 
-// 清除今日營業
 
 function clearSales(){
 
 
-if(confirm("確定清除今日資料嗎？")){
+if(confirm("確定清除今日營業資料嗎？")){
 
 
 todaySales=0;
@@ -483,12 +417,16 @@ todayOrders=0;
 
 todayCount=0;
 
+
 orderHistory=[];
 
 
 localStorage.removeItem("todaySales");
+
 localStorage.removeItem("todayOrders");
+
 localStorage.removeItem("todayCount");
+
 localStorage.removeItem("orderHistory");
 
 
@@ -507,6 +445,7 @@ alert("今日資料已清除");
 
 
 
+
 // 訂單號碼歸零
 
 function resetOrderNumber(){
@@ -515,16 +454,18 @@ function resetOrderNumber(){
 if(confirm("確定訂單號碼重新從001開始嗎？")){
 
 
-orderNumber=1;
+orderNumber = 1;
 
 
 localStorage.setItem(
 "orderNumber",
-1
+"1"
 );
 
 
-alert("訂單號碼已歸零");
+alert(
+"訂單號碼已歸零\n下一張為001號"
+);
 
 
 }
@@ -534,7 +475,6 @@ alert("訂單號碼已歸零");
 
 
 
-// 啟動
 
 showOrder();
 
@@ -543,22 +483,3 @@ showReport();
 showHistory();
 
 updateMenuCount();
-function resetOrderNumber(){
-
-let check = confirm("確定訂單號碼歸零嗎？");
-
-if(check){
-
-orderNumber = 1;
-
-localStorage.setItem(
-"orderNumber",
-"1"
-);
-
-
-alert("完成！下一張訂單為001號");
-
-}
-
-}
