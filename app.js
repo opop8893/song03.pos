@@ -1,7 +1,7 @@
 let order = [];
 let total = 0;
 
-let orderNumber = 
+let orderNumber =
 Number(localStorage.getItem("orderNumber")) || 1;
 
 let todaySales =
@@ -12,6 +12,8 @@ Number(localStorage.getItem("todayOrders")) || 0;
 
 let todayCount =
 Number(localStorage.getItem("todayCount")) || 0;
+
+
 let orderHistory =
 JSON.parse(localStorage.getItem("orderHistory")) || [];
 
@@ -22,6 +24,7 @@ JSON.parse(localStorage.getItem("salesRank")) || {};
 const price = 130;
 
 
+// 點餐
 function addItem(name){
 
 order.push({
@@ -36,18 +39,22 @@ showOrder();
 }
 
 
-
+// 加起司
 function addCheese(){
 
 if(order.length === 0){
+
 alert("請先選擇商品");
 return;
+
 }
+
 
 order.push({
 name:"加起司",
 price:10
 });
+
 
 total += 10;
 
@@ -56,17 +63,19 @@ showOrder();
 }
 
 
-
+// 顯示目前訂單
 function showOrder(){
 
 let text="";
+
 
 order.forEach((item,index)=>{
 
 text +=
 (index+1)+". "+
 item.name+
-" "+item.price+
+" "+
+item.price+
 "元<br>";
 
 });
@@ -82,12 +91,16 @@ document.getElementById("total").innerHTML=
 
 
 
+// 完成訂單
 function finishOrder(){
 
 if(order.length===0){
+
 alert("目前沒有訂單");
 return;
+
 }
+
 
 
 todayOrders++;
@@ -95,12 +108,16 @@ todayOrders++;
 todaySales += total;
 
 
-// 計算碗數（扣除加購）
+
 let bowls =
 order.filter(item=>item.name!="加起司").length;
 
+
 todayCount += bowls;
-let saveOrder = {
+
+
+
+let saveOrder={
 
 number:String(orderNumber).padStart(3,"0"),
 
@@ -109,6 +126,7 @@ items:order,
 total:total
 
 };
+
 
 
 orderHistory.push(saveOrder);
@@ -120,7 +138,9 @@ JSON.stringify(orderHistory)
 );
 
 
+
 order.forEach(item=>{
+
 
 if(item.name!="加起司"){
 
@@ -132,59 +152,67 @@ salesRank[item.name] =
 });
 
 
+
 localStorage.setItem(
 "salesRank",
 JSON.stringify(salesRank)
 );
 
-localStorage.setItem(
-"orderNumber",
-orderNumber+1
-);
 
 localStorage.setItem(
 "todaySales",
 todaySales
 );
 
+
 localStorage.setItem(
 "todayOrders",
 todayOrders
 );
 
+
 localStorage.setItem(
 "todayCount",
 todayCount
 );
-localStorage.removeItem("orderHistory");
-localStorage.removeItem("salesRank");
 
-orderHistory=[];
-salesRank={};
 
-showHistory();
-showRanking();
+
+localStorage.setItem(
+"orderNumber",
+orderNumber+1
+);
+
+
 
 alert(
 "完成訂單\n\n"+
-"訂單號碼："+String(orderNumber).padStart(3,"0")+
+"號碼："+String(orderNumber).padStart(3,"0")+
 "\n金額："+total+"元"
 );
+
 
 
 orderNumber++;
 
 order=[];
+
 total=0;
+
 
 showOrder();
 
 showReport();
 
+showHistory();
+
+showRanking();
+
 }
 
 
 
+// 今日營業
 function showReport(){
 
 document.getElementById("report").innerHTML=
@@ -196,38 +224,8 @@ document.getElementById("report").innerHTML=
 }
 
 
-showReport();
-function clearSales(){
 
-if(confirm("確定清除今日營業資料嗎？")){
-
-localStorage.removeItem("todaySales");
-localStorage.removeItem("todayOrders");
-localStorage.removeItem("todayCount");
-
-
-todaySales = 0;
-todayOrders = 0;
-todayCount = 0;
-
-
-showReport();
-
-
-alert("今日營業資料已清除");
-
-}
-
-}
-function showReport(){
-
-document.getElementById("report").innerHTML =
-
-"訂單數：" + todayOrders + "筆<br>" +
-"總碗數：" + todayCount + "碗<br>" +
-"營業額：" + todaySales + "元";
-
-}showReport();
+// 訂單明細
 function showHistory(){
 
 let text="";
@@ -246,6 +244,7 @@ orderHistory.forEach(o=>{
 text +=
 "<hr>"+
 o.number+"號<br>";
+
 
 
 o.items.forEach(item=>{
@@ -274,13 +273,16 @@ document.getElementById("orderHistory").innerHTML=text;
 
 
 
+// 銷售排行
 function showRanking(){
 
 let text="";
 
 
-let rank = Object.entries(salesRank)
+let rank =
+Object.entries(salesRank)
 .sort((a,b)=>b[1]-a[1]);
+
 
 
 if(rank.length===0){
@@ -292,6 +294,7 @@ text="目前沒有資料";
 
 rank.forEach((item,index)=>{
 
+
 text +=
 (index+1)+". "+
 item[0]+
@@ -299,15 +302,61 @@ item[0]+
 item[1]+
 "碗<br>";
 
+
 });
 
 }
+
 
 
 document.getElementById("ranking").innerHTML=text;
 
 }
 
+
+
+// 清除今日營業
+function clearSales(){
+
+
+if(confirm("確定清除今日營業資料嗎？")){
+
+
+todaySales=0;
+todayOrders=0;
+todayCount=0;
+
+
+orderHistory=[];
+salesRank={};
+
+
+localStorage.removeItem("todaySales");
+localStorage.removeItem("todayOrders");
+localStorage.removeItem("todayCount");
+localStorage.removeItem("orderHistory");
+localStorage.removeItem("salesRank");
+
+
+
+showReport();
+
+showHistory();
+
+showRanking();
+
+
+alert("今日資料已清除");
+
+}
+
+
+}
+
+
+
+// 開啟時載入
+showReport();
 
 showHistory();
 
