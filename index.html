@@ -61,7 +61,6 @@
 <hr>
 
 
-
 <h2>🧾 目前訂單</h2>
 
 
@@ -70,103 +69,76 @@
 </div>
 
 
-
 <h2 id="total">
 總金額：0元
 </h2>
 
 
-
-
 <button onclick="addCheese()">
-
 🧀 加起司 +10元
-
 </button>
-
 
 
 <br><br>
 
 
 <button onclick="finishOrder()">
-
 ✅ 完成訂單
-
 </button>
 
 
-
-
 <hr>
-
 
 
 <h2>📊 今日營業</h2>
 
 
 <div id="report">
-
 今日尚無資料
-
 </div>
 
 
-
 <button onclick="clearSales()">
-
 🗑️ 清除今日營業
-
 </button>
-
 
 
 <br><br>
 
 
-
 <button onclick="resetOrderNumber()">
-
 🔢 訂單號碼歸零
-
 </button>
-
 
 
 
 <hr>
 
 
-
 <h2>🧾 今日訂單明細</h2>
 
 
 <div id="orderHistory">
-
 目前沒有訂單
-
 </div>
 
 
+
+<hr>
+
+
+<h2>🏷️ B21標籤內容</h2>
+
+
+<div id="printLabel">
+尚無標籤
+</div>
 
 
 
 <script src="app.js"></script>
 
 
-
-<script>
-
-if ("serviceWorker" in navigator) {
-
-navigator.serviceWorker.register("service-worker.js");
-
-}
-
-</script>
-
-
 </body>
-
 
 </html>
