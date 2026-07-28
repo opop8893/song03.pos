@@ -7,7 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>宋爽爽花枝蝦滑湯 POS</title>
+<title>宋爽爽花枝蝦滑湯</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#c0392b">
 
 </head>
 
@@ -18,111 +24,147 @@
 <h1>🍲 宋爽爽花枝蝦滑湯</h1>
 
 
-<h2>選擇湯底</h2>
+<h2>🍜 選擇口味</h2>
+
+
+<div>
 
 
 <button onclick="addItem('蜀香麻辣')">
-<span id="btn-蜀香麻辣">🌶 蜀香麻辣</span>
+🌶 蜀香麻辣<br>
+130元
 </button>
 
 
 <button onclick="addItem('石頭火鍋')">
-<span id="btn-石頭火鍋">🪨 石頭火鍋</span>
+🪨 石頭火鍋<br>
+130元
 </button>
 
 
 <button onclick="addItem('田園蕃茄')">
-<span id="btn-田園蕃茄">🍅 田園蕃茄</span>
+🍅 田園蕃茄<br>
+130元
 </button>
 
 
 <button onclick="addItem('濃郁牛奶')">
-<span id="btn-濃郁牛奶">🥛 濃郁牛奶</span>
+🥛 濃郁牛奶<br>
+130元
 </button>
 
 
 <button onclick="addItem('烏溜溜黑蒜')">
-<span id="btn-烏溜溜黑蒜">🧄 烏溜溜黑蒜</span>
+🧄 烏溜溜黑蒜<br>
+130元
 </button>
 
 
 <button onclick="addItem('酸菜魚')">
-<span id="btn-酸菜魚">🥬 酸菜魚</span>
+🥬 酸菜魚<br>
+130元
 </button>
+
+
+</div>
+
 
 
 <hr>
 
 
-<h2>目前訂單</h2>
+<h2>🧾 目前訂單</h2>
+
 
 <div id="orderList">
+
 目前沒有訂單
+
 </div>
+
 
 
 <h2 id="total">
+
 總金額：0元
+
 </h2>
 
 
+
+
 <button onclick="addCheese()">
+
 🧀 加起司 +10元
+
 </button>
 
-
-<br><br>
 
 
 <button onclick="finishOrder()">
+
 ✅ 完成訂單
+
 </button>
+
+
 
 
 <hr>
 
 
-<h2>今日營業</h2>
 
-<div id="report"></div>
+<h2>📊 今日營業</h2>
+
+
+<div id="report">
+
+今日尚無資料
+
+</div>
+
 
 
 <button onclick="clearSales()">
-🗑 清除今日營業
+
+🗑️ 清除今日營業
+
 </button>
 
-
-<br><br>
-
-
-<button onclick="resetOrderNumber()">
-🔢 訂單號碼歸零
-</button>
 
 
 
 <hr>
 
 
-<h2>訂單明細</h2>
+
+<h2>🧾 今日訂單明細</h2>
+
 
 <div id="orderHistory">
+
 目前沒有訂單
+
 </div>
 
 
-<hr>
-
-
-<h2>B21標籤內容</h2>
-
-<div id="printLabel">
-尚無標籤
-</div>
 
 
 
 <script src="app.js"></script>
+
+
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+navigator.serviceWorker.register("service-worker.js");
+
+}
+
+</script>
+
 
 
 </body>
