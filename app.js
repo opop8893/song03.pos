@@ -172,3 +172,12 @@ alert("今日營業資料已清除");
 }
 
 }
+function showReport(){
+
+document.getElementById("report").innerHTML =
+
+"訂單數：" + todayOrders + "筆<br>" +
+"總碗數：" + todayCount + "碗<br>" +
+"營業額：" + todaySales + "元";
+
+}showReport();
